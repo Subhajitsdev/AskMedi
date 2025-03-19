@@ -1,4 +1,3 @@
-# gradio_app.py (Main Application)
 from dotenv import load_dotenv
 import os
 import gradio as gr
@@ -13,7 +12,7 @@ system_prompt = """You have to act as a professional doctor. I know you are not,
             If you make a differential diagnosis, suggest some remedies. Don't add any numbers or special characters in
             your response. Your response should be in one long paragraph. Always answer as if you are answering a real person.
             Don't respond as an AI model in markdown. Your answer should mimic that of an actual doctor, not an AI bot.
-            Keep your answer concise (max 2 sentences). No preamble, start your answer right away, please."""
+            Keep your answer concise. No preamble, start your answer right away, please."""
 
 def process_inputs(text_input, audio_filepath, image_filepath):
     """Processes inputs (text, audio, image) and generates doctor's response."""
@@ -40,7 +39,7 @@ def process_inputs(text_input, audio_filepath, image_filepath):
     if image_filepath and encoded_image:
         model = "llama-3.2-90b-vision-preview"  # Use vision model
     else:
-        model = "llama-3.2-1b-preview"  # Use non-vision model.  llama-3.2-1b-preview IS NOT A VALID MODEL
+        model = "llama-3.2-1b-preview"  
     doctor_response = analyze_image_with_query(query=combined_query, encoded_image=encoded_image, model=model)
 
 
@@ -59,19 +58,21 @@ def process_inputs(text_input, audio_filepath, image_filepath):
 
 
 # Create the Gradio Interface
+text_input = gr.Textbox(label="Patient Text Input", placeholder="Type your question here...")
+audio_input = gr.Audio(sources=["microphone"], type="filepath", label="Patient Voice Input")
+image_input = gr.Image(type="filepath", label="Image Input")
+
+patient_output = gr.Textbox(label="Patient Input (Text or Transcribed Voice)")
+doctor_text_output = gr.Textbox(label="Doctor's Response (Text)")
+doctor_audio_output = gr.Audio(label="Doctor's Response (Audio)")
+
+clear_button = gr.ClearButton([text_input, audio_input, image_input, patient_output, doctor_text_output, doctor_audio_output])
+
 iface = gr.Interface(
-    fn=process_inputs,
-    inputs=[
-        gr.Textbox(label="Patient Text Input", placeholder="Type your question here..."),
-        gr.Audio(sources=["microphone"], type="filepath", label="Patient Voice Input"),
-        gr.Image(type="filepath", label="Image Input"),
-    ],
-    outputs=[
-        gr.Textbox(label="Patient Input (Text or Transcribed Voice)"),
-        gr.Textbox(label="Doctor's Response (Text)"),
-        gr.Audio(label="Doctor's Response (Audio)"),
-    ],
-    title="ASKMEDIGUIDE - Your AI Medical Assistant",
+    fn=process_inputs, 
+    inputs=[text_input, audio_input, image_input],
+    outputs=[patient_output, doctor_text_output, doctor_audio_output],
+    title="ASKMEDI🧑‍⚕️ - Your AI Medical Assistant",
 )
 
 iface.launch(debug=True, share=True)

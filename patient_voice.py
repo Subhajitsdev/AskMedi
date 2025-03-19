@@ -1,11 +1,10 @@
-# patient_voice.py
 from dotenv import load_dotenv
 import os
 import logging
 import speech_recognition as sr
 from pydub import AudioSegment
 from io import BytesIO
-from groq import Groq  # Import Groq
+from groq import Groq  
 
 load_dotenv()
 

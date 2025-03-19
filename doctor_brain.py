@@ -1,4 +1,3 @@
-# doctor_brain.py
 from dotenv import load_dotenv
 import os
 import base64
