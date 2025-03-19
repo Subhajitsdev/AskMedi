@@ -1,0 +1,4 @@
+.env
+.gradio
+.mediguide_venv
+hemlo.py
