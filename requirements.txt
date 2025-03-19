@@ -58,3 +58,4 @@ websockets==14.1; python_version >= '3.9'
 python-dotenv
 librosa
 soundfile
+wheel
