@@ -31,7 +31,7 @@ def record_audio(file_path, timeout=20, phrase_time_limit=None):
         return  # Explicitly return None on error
 
 
-def transcribe_with_groq(audio_filepath, GROQ_API_KEY, stt_model="whisper-large-v3"):
+def transcribe_with_groq(audio_filepath, GROQ_API_KEY, stt_model="whisper-large-v3-turbo"):
     """Transcribes audio using Groq's API."""
     if not audio_filepath: # check for valid audio file path
         return ""

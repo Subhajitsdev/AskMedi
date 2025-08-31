@@ -1,4 +1,4 @@
 .env
 .gradio
-.mediguide_venv
+mediguide_venv
 __pycache__

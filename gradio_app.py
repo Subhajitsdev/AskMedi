@@ -37,9 +37,9 @@ def process_inputs(text_input, audio_filepath, image_filepath):
 
    # 4. Determine Model and Analyze
     if image_filepath and encoded_image:
-        model = "llama-3.2-90b-vision-preview"  # Use vision model
+        model = "meta-llama/llama-4-scout-17b-16e-instruct"  # Use vision model
     else:
-        model = "llama-3.2-1b-preview"  
+        model = "llama-3.1-8b-instant"  # Use text-only model
     doctor_response = analyze_image_with_query(query=combined_query, encoded_image=encoded_image, model=model)
 
 
